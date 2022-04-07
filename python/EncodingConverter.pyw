@@ -1,4 +1,7 @@
-encoder = ['UTF-8', 'windows-1252', 'GBK', 'Big5', 'Shift_Jis', 'iso-8859-1']
+encoder = [
+    'UTF-8', 'windows-1252', 'GBK', 'GB18030', 'Big5', 'Shift_Jis',
+    'iso-8859-1'
+]
 # str = '娴嬭瘯'
 
 # for de in encoder:
