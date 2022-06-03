@@ -17,7 +17,7 @@ goto :eof
     for /F "usebackq tokens=*" %%A in ("%pwlist%") do (
         "%exe%" l %1 -sccUTF-8 "-p%%A" >nul 2>nul && (
         echo [42m [OK:list] %%A [0m
-        "%exe%g" x  %1 -aou -sccUTF-8 "-p%%A" -o* >nul 2>nul && (
+        "%exe%g" x  %1 -aou -sccUTF-8 "-p%%A" -o%~dp1 >nul 2>nul && (
 	echo [42m [OK:unzip] %%A [0m
 	goto :break
 	)
