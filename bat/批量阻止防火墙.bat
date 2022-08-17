@@ -1,4 +1,5 @@
 echo off
+chcp 65001
 rem 关闭自动输出
 setlocal ENABLEDELAYEDEXPANSION
 mode con: cols=65 lines=25
@@ -31,13 +32,13 @@ setlocal enabledelayedexpansion
 set /a n=0
 for /r "%Fpath%" %%i in (*.exe) do (
     set /a n+=1
-    echo "!n!_%name%","%%i" 
-    netsh advfirewall firewall del rule name="!n!_%name%">nul 2>nul
-    netsh advfirewall firewall add rule name="!n!_%name%" program="%%i" action=block dir=out>null
-    echo 阻止!n!_%name%程序出站规则已添加成功
+    echo "[bat]%name%_!n!","%%i" 
+    netsh advfirewall firewall del rule name="[bat]%name%_!n!">nul 2>nul
+    netsh advfirewall firewall add rule name="[bat]%name%_!n!" program="%%i" action=block dir=out>nul
+    echo 阻止%name%_!n!程序出站规则已添加成功
 )
 
-rem pause>null
+rem pause>nul
 
 echo.
 
