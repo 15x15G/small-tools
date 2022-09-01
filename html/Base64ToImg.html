@@ -1,0 +1,61 @@
+<html>
+  <style>
+    #btn {
+      font-size: 18px;
+      margin: 10;
+      padding: 10;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    #inputtext {
+      width: 90%;
+      height: 100px;
+      border-width: 2.5px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    div {
+      text-align: center;
+      margin-bottom: 10;
+    }
+  </style>
+  <body>
+    <script>
+      async function run() {
+        var image = document.getElementById("image");
+        var input = document.getElementById("inputtext");
+        if (await isBase64UrlImage(input.value)) {
+          image.src = input.value;
+        } else {
+          image.alt = "error";
+          image.src = "";
+        }
+      }
+      async function isBase64UrlImage(base64String) {
+        if (!base64String.startsWith("data:image/")) return false;
+        let image = new Image();
+        image.src = base64String;
+        return await new Promise((resolve) => {
+          image.onload = function () {
+            if (image.height === 0 || image.width === 0) {
+              resolve(false);
+              return;
+            }
+            resolve(true);
+          };
+          image.onerror = () => {
+            resolve(false);
+          };
+        });
+      }
+    </script>
+    <div>
+      <textarea id="inputtext" placeholder="data:image/png;base64,..."></textarea>
+
+      <button id="btn" onclick="run()">转换</button>
+    </div>
+    <div>
+      <img id="image" src="" alt="empty" />
+    </div>
+  </body>
+</html>
