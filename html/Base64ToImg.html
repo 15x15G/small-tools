@@ -21,36 +21,29 @@
   </style>
   <body>
     <script>
-      async function run() {
+      function run() {
         var image = document.getElementById("image");
         var input = document.getElementById("inputtext");
-        if (await isBase64UrlImage(input.value)) {
-          image.src = input.value;
-        } else {
+        if (!input.value.startsWith("data:image/")) {
           image.alt = "error";
           image.src = "";
         }
-      }
-      async function isBase64UrlImage(base64String) {
-        if (!base64String.startsWith("data:image/")) return false;
-        let image = new Image();
-        image.src = base64String;
-        return await new Promise((resolve) => {
-          image.onload = function () {
-            if (image.height === 0 || image.width === 0) {
-              resolve(false);
-              return;
-            }
-            resolve(true);
-          };
-          image.onerror = () => {
-            resolve(false);
-          };
-        });
+        image.onload = function () {
+          if (image.height === 0 || image.width === 0) {
+            image.alt = "error";
+            image.src = "";
+          }
+        };
+        image.onerror = function () {
+          image.alt = "error";
+          image.src = "";
+        };
+        image.src = input.value;
+        image.alt = "";
       }
     </script>
     <div>
-      <textarea id="inputtext" placeholder="data:image/png;base64,..."></textarea>
+      <textarea id="inputtext" placeholder="data:image/..."></textarea>
 
       <button id="btn" onclick="run()">转换</button>
     </div>
