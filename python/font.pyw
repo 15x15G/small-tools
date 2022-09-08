@@ -1,6 +1,13 @@
 from tkinter import *
 from tkinter import font
+import sys
 
+args=sys.argv
+if len(args)>1:
+    char= args[1]
+else:
+    char=""
+    
 root = Tk()
 root.title('Font Families')
 fonts = list(font.families())
@@ -12,7 +19,7 @@ def populate(frame):
     listnumber = 1
     for item in fonts:
         label = "listlabel" + str(listnumber)
-        label = Label(frame, text=item, font=(item, 16)).pack()
+        label = Label(frame, text=item + char, font=(item, 16)).pack()
         listnumber += 1
 
 
